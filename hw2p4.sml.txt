@@ -1,0 +1,29 @@
+fun take(L) =
+    if L = nil then nil
+    else hd(L)::skip1(tl(L))
+
+and
+
+skip1(L) =
+    if L=nil then nil
+    else skip2(tl(L))
+
+and
+
+skip2(L) =
+    if L=nil then nil
+    else skip3(tl(L))
+
+and
+
+skip3(L) =
+    if L=nil then nil
+    else take(tl(L));
+    
+
+(* TEST CASES *)
+
+take([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
+skip1([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
+skip2([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
+skip3([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]); 

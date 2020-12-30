@@ -1,0 +1,26 @@
+(* PART A *)
+
+fun revCycle L =
+    if length L <= 1 then
+        L
+    else
+        tl(L) @ [hd(L)];
+
+
+(* PART B *)
+
+fun revCycles(L, i) =
+    if length L <= 1 orelse i = 0 then
+        L
+    else
+        revCycles(tl(L)@[hd(L)], i-1);
+
+
+(* TEST CASES *)
+
+revCycle([1.0, 2.0, 3.0]); 
+revCycle([4.2, 9.1, 2.3, 7.2, 1.2]);
+revCycle([1, 2, 3]);
+revCycles([1.0, 2.0, 3.0], 4);
+revCycles([4.2, 9.1, 2.3, 7.2, 1.2], 3);
+revCycles([1, 2, 3, 4, 5, 6], 4);

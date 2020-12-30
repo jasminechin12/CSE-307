@@ -1,0 +1,25 @@
+fun Square (x : real) =
+    x*x;
+
+fun Cube (x : real) =
+    x*x*x;
+
+fun AddTen(x: real) =
+    x+10.0;
+
+fun calculate(a: real, d: real, n : int, F, lst, count: real) =
+    if n < 0 then
+        lst
+    else
+        calculate(a, d, n-1, F, lst@[(a+(count*d), F(a+(count*d)))], count+1.0);
+
+fun tabulate(a: real, d: real, n: int, F: real -> real) =
+    calculate(a, d, n, F, [], 0.0);
+
+
+
+(* TEST CASES *)
+
+tabulate(0.1, 2.0, 2, Square);
+tabulate(0.1, 2.0, 2, Cube);
+tabulate(0.1, 2.0, 2, AddTen); 

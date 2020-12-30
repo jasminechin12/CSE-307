@@ -1,0 +1,76 @@
+(* PART A *)
+
+fun appendElem (n, lst) =
+    if n = 0 then
+        lst
+    else
+        appendElem(n-1, 1.0::lst);
+
+fun genPoly n =
+    appendElem(n, [1.0]);
+
+
+    
+(* PART B *)
+
+fun pow(base, expt) = 
+    if expt < 0.00000000000001 then
+        1.0
+    else
+        base * pow(base, expt-1.0);
+
+fun sumElems(P: real list, sum, num, index) =
+    if length P = 0 then
+        sum
+    else (
+        sumElems(tl(P), sum + hd(P) * pow(num, index), num, index+1.0));
+
+fun evalPoly(P, a) = 
+    sumElems(P, 0.0, a, 0.0);
+    
+
+
+(* PART C *)
+
+fun padding(lst : real list, index1) =
+    if index1 = 0 then
+        lst
+    else
+        padding(0.0::lst, index1 - 1);
+
+fun add(lst : real list, current_sum : real list, sum : real list) =
+    if length lst = 0 then
+        sum
+    else if length current_sum = 0 then
+        sum@lst
+    else
+        add(tl(lst), tl(current_sum), sum@[hd(lst)+hd(current_sum)]);
+
+fun distribute(head : real, P2 : real list, lst : real list) =
+    if length P2 = 0 then
+        lst
+    else
+        distribute(head, tl(P2), lst@[head*hd(P2)]);
+
+fun multiply(P1 : real list, P2 : real list, lst : real list, sum : real list, index1) =
+    if length P1 = 0 then 
+        sum
+    else 
+        multiply(tl(P1), P2, [], add(padding(distribute(hd(P1), P2, lst), index1), sum, []), index1 + 1);
+
+fun multiPoly(P1 : real list, P2 : real list) =
+    if length P1 = 0 then
+        P2
+    else if length P2 = 0 then
+        P1
+    else
+        multiply(P1, P2, [], [], 0);
+
+(* TEST CASES *)
+
+genPoly(4);
+genPoly(2);
+evalPoly([10.0, 3.0, 1.0], 2.0);
+evalPoly([5.0, 2.0, 2.0, 3.0], 5.0);
+multiPoly([~1.0, 1.0], [1.0, 1.0]);
+multiPoly([1.0, 1.0], [2.0, 1.0]);
